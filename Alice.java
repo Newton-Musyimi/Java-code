@@ -48,8 +48,9 @@ public class Alice{
         }
       
     }
-    public static void wordCountSort(String a){
+    public static void wordCountSort(String b){
         Boolean check = true;
+        String a = removePunct(b.toLowerCase());
         String[] str = a.split(" ");
         int string_length = str.length;
         String[] wordArray = new String[string_length];
@@ -75,6 +76,19 @@ public class Alice{
             int count = countFrequency(word,str);
             System.out.printf("%s    -> %d\n",word,count);
         }
+    }
+    public static String removePunct(String str){
+        String result = "";
+        char[] b = str.toCharArray();
+        for(char i: b){
+            if(i>='!'&&i<='/'){
+                str.replace(i,' ');
+            }
+            if(i>=':'&&i<='?'){
+                str.replace(i,' ');
+            }
+        }
+        return result;
     }
     public static int countFrequency(String word,String[] str){
         int count = 0;

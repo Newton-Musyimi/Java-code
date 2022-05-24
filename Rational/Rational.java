@@ -15,9 +15,21 @@ public class Rational
         this.denominator = y; //danger
     }
 
-    public String toString()
+    public String toString()//do
     {
+        int num;
         simplify();
+        if(this.numerator==this.denominator){
+            return "1";
+        }
+        if(this.denominator==1){
+            return String.format("%d",this.numerator);
+        }
+        if(this.numerator>this.denominator){
+            num = this.numerator/this.denominator;
+            this.numerator %= this.denominator;
+            return String.format("%d %d/%d",num,this.numerator,this.denominator);
+        }
         return String.format("%d/%d", this.numerator, this.denominator);
     }
 
@@ -45,16 +57,16 @@ public class Rational
         this.denominator = x.denominator*y.numerator;
     }
 
-    public void update (int n, int d)
+    public void update (int num, int denum)
     {
         // this method should update the value of the instance calling it
-        int gcd;
-        gcd = gcd(n, d);
+        int g;
+        g = gcd(num, denum);
 
-        n = n / gcd;
-        d = d / gcd;
-        this.numerator = n;
-        this.denominator = d; //danger
+        num = num / g;
+        denum = denum / g;
+        this.numerator = num;
+        this.denominator = denum; //danger
     }
 
     public int getNumerator ()
@@ -79,14 +91,26 @@ public class Rational
         return true;
     }
 
-    public int compare (Rational x)
+    public int compare (Rational x)//do
     {
         // this method should return:
         //      a negative number if the instance calling it is less than x
         //      zero if the instance calling it is equal to x
         //      a positive number if the instance calling it is greater than x
-
-        return 0;
+        double numa = this.numerator;
+        double numb = x.numerator;
+        double denuma = this.denominator;
+        double denumb = x.denominator;
+        double to_check = numa/denuma;
+        double other = numb/denumb;
+        int value = 2;
+        if(to_check == other){
+            value = 0;
+        }
+        if(to_check < other){
+            value = -2;
+        }
+        return value;
     }
 
     private int gcd(int x, int y)
@@ -101,11 +125,15 @@ public class Rational
         }
     }
 
-    private void simplify()
+    private void simplify()//do
     {
         int g = gcd(this.numerator, this.denominator);
         this.numerator = this.numerator/g;
         this.denominator = this.denominator/g;
+        if(this.denominator<0){
+            this.denominator = this.denominator*-1;
+            this.numerator = this.numerator*-1;
+        }
     }
 
 
